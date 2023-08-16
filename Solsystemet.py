@@ -1,1 +1,1 @@
-hellu
+print('hellu wurld')
