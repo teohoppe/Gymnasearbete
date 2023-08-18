@@ -1,3 +1,2 @@
-print('hellu wurld')
-
-print("weeeee huuu")
+jorden = {'mass': 5.972 * 10**24, 'radie' : 6371 * 1000, 'g' : 9.82}
+moon = {'mass' : 7.35 * 10**24, 'radie': 1737.4 * 1000, 'g moon': 1.62}
