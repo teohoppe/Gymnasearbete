@@ -1,0 +1,37 @@
+import tkinter as tk
+import math
+
+class CelestialBody:
+    def __init__(self, canvas, x, y, radius, color, orbit_radius, angular_speed):
+        self.canvas = canvas
+        self.shape = self.canvas.create_oval(x - radius, y - radius, x + radius, y + radius, fill=color)
+        self.angle = 0
+        self.orbit_radius = orbit_radius
+        self.angular_speed = angular_speed
+
+    def move(self):
+        self.angle += self.angular_speed
+        x = 400 + self.orbit_radius * math.cos(math.radians(self.angle))
+        y = 300 + self.orbit_radius * math.sin(math.radians(self.angle))
+        self.canvas.coords(self.shape, x, y, x + 20, y + 20)
+
+def main():
+    root = tk.Tk()
+    root.title("Earth-Moon System")
+
+    canvas = tk.Canvas(root, width=800, height=600)
+    canvas.pack()
+
+    earth = CelestialBody(canvas, 400, 300, 20, "blue", 0, 2)   # Earth (stationary)
+
+    moon = CelestialBody(canvas, 400, 300, 5, "gray", 80, 70)   # Moon (orbits Earth)
+
+    def move_bodies():
+        moon.move()
+        root.after(50, move_bodies)
+
+    move_bodies()
+    root.mainloop()
+
+if __name__ == "__main__":
+    main()
