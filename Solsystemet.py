@@ -1,5 +1,7 @@
 import math
 from math_pi import pi
+import time
+import random
 
 
 class Planet:
@@ -18,20 +20,49 @@ class Rocket:
         self.mass = mass
 
 
-# Time to revolve around earth 2 358 720 Sekonds
-# 384 400 000 meters to the moon
+# Time to revolve around earth 2358720 Sekonds
+# 384400000 meters to the moon
 moon = Planet(7.35 * 10**24, 1737.4 * 1000, 1.62, 1022)
 earth = Planet(5.972 * 10**24, 6371 * 1000, 9.82, 0)
 
-tick_speed =  2360800 
-time = 0
+# Hur snabbt simuleringen körs(nogranhet)
+tick_speed = 100
+
 
 def moon_orbit(tick_speed, moon, earth):
+    v = 0
+    time_from_start = 0
+    while True:
+
+        # Uträkning som använder månens hastighet och avstånd till jorden för att avgöra vart månen är
+        time_from_start += 1
         distance = tick_speed * moon.speed
-        v = (distance * 360) / (math.pi * 2 * 384400000)
-        print(v)
+        v += (distance * 360) / (math.pi * 2 * 384400000)
+
+        # hittar mån kordinater
+        find_moon_x_and_y(v, time_from_start)
+
+        # Avgör när månen har åkt ett helt varv
+        if v > 360:
+            print(v)
+            v = 0
+            print('MÅNAD')
+            print(time_from_start)
+            break
+
+
+def find_moon_x_and_y(v, time_from_start):
+    # Sinusats för att hitta x och y kordinater till månen
+
+    v_in_rad = math.radians(v)
+    moon_y = math.sin(v_in_rad) * 384400000
+    moon_x = math.cos(v_in_rad) * 384400000
+
+    print(round(moon_y, 0))
+
 
 def main():
     time += tick_speed
-    
+
+
 moon_orbit(tick_speed, moon, earth)

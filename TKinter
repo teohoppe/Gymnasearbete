@@ -24,7 +24,7 @@ def main():
 
     earth = CelestialBody(canvas, 400, 300, 20, "blue", 0, 2)   # Earth (stationary)
 
-    moon = CelestialBody(canvas, 400, 300, 5, "gray", 80, 70)   # Moon (orbits Earth)
+    moon = CelestialBody(canvas, 400, 300, 5, "gray", 80, 2)   # Moon (orbits Earth)
 
     def move_bodies():
         moon.move()
