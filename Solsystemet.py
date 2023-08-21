@@ -1,5 +1,5 @@
 import math
-from math_pi import pi
+from math import pi
 import time
 import random
 
@@ -63,6 +63,7 @@ def find_moon_x_and_y(v, time_from_start):
 
 def main():
     time += tick_speed
+
 
 
 moon_orbit(tick_speed, moon, earth)
