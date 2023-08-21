@@ -1,37 +1,64 @@
-import tkinter as tk
+import pygame
 import math
 
-class CelestialBody:
-    def __init__(self, canvas, x, y, radius, color, orbit_radius, angular_speed):
-        self.canvas = canvas
-        self.shape = self.canvas.create_oval(x - radius, y - radius, x + radius, y + radius, fill=color)
-        self.angle = 0
-        self.orbit_radius = orbit_radius
-        self.angular_speed = angular_speed
+# Initialize Pygame
+pygame.init()
 
-    def move(self):
-        self.angle += self.angular_speed
-        x = 400 + self.orbit_radius * math.cos(math.radians(self.angle))
-        y = 300 + self.orbit_radius * math.sin(math.radians(self.angle))
-        self.canvas.coords(self.shape, x, y, x + 20, y + 20)
+# Set up display
+width, height = 800, 600
+screen = pygame.display.set_mode((width, height))
+pygame.display.set_caption("Moon Orbit Simulation")
+
+# Colors
+WHITE = (255, 255, 255)
+GRAY = (200, 200, 200)
+BLUE = (0, 0, 255)
+
+# Planet parameters
+earth_radius = 50
+moon_radius = 10
+moon_distance = 150
+
+# Initialize clock
+clock = pygame.time.Clock()
+
 
 def main():
-    root = tk.Tk()
-    root.title("Earth-Moon System")
+    running = True
+    angle = 0
 
-    canvas = tk.Canvas(root, width=800, height=600)
-    canvas.pack()
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
 
-    earth = CelestialBody(canvas, 400, 300, 20, "blue", 0, 2)   # Earth (stationary)
+        # Clear screen
+        screen.fill(WHITE)
 
-    moon = CelestialBody(canvas, 400, 300, 5, "gray", 80, 2)   # Moon (orbits Earth)
+        # Draw Earth
+        earth_x = width // 2
+        earth_y = height // 2
+        pygame.draw.circle(screen, BLUE, (earth_x, earth_y), earth_radius)
 
-    def move_bodies():
-        moon.move()
-        root.after(50, move_bodies)
+        # Calculate moon position
+        moon_x = earth_x + moon_distance * math.cos(math.radians(angle))
+        moon_y = earth_y + moon_distance * math.sin(math.radians(angle))
 
-    move_bodies()
-    root.mainloop()
+        # Draw moon
+        pygame.draw.circle(
+            screen, GRAY, (int(moon_x), int(moon_y)), moon_radius)
+
+        # Update angle
+        angle += 1  # You can adjust this value to control the speed of the orbit
+
+        # Update display
+        pygame.display.flip()
+
+        # Limit frames per second
+        clock.tick(60)
+
+    pygame.quit()
+
 
 if __name__ == "__main__":
     main()
