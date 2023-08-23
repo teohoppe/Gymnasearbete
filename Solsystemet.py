@@ -29,7 +29,8 @@ earth = Planet(5.972 * 10**24, 6371 * 1000, 9.82, 0)
 tick_speed = 100
 
 
-def moon_orbit(tick_speed, moon, earth):
+def moon_orbit(tick_speed, moon, earth):    
+    
     v = 0
     time_from_start = 0
     while True:
@@ -53,6 +54,8 @@ def moon_orbit(tick_speed, moon, earth):
 
 def find_moon_x_and_y(v, time_from_start):
     # Sinusats för att hitta x och y kordinater till månen
+    #orbit = ((x^(2))/(384400^(2)))+((y^(2))/(383800^(2)))
+    # Alex säger att det går bra annars att använda sig av att orbit är en perfekt cirkel istället för en elips med 0.16% skillnad
 
     v_in_rad = math.radians(v)
     moon_y = math.sin(v_in_rad) * 384400000
