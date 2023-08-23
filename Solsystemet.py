@@ -57,6 +57,7 @@ def find_moon_x_and_y(v, time_from_start):
     #orbit = ((x^(2))/(384400^(2)))+((y^(2))/(383800^(2)))
     # Alex säger att det går bra annars att använda sig av att orbit är en perfekt cirkel istället för en elips med 0.16% skillnad
 
+    #G
     v_in_rad = math.radians(v)
     moon_y = math.sin(v_in_rad) * 384400000
     moon_x = math.cos(v_in_rad) * 384400000
