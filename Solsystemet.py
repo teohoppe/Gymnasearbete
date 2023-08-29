@@ -5,11 +5,12 @@ import random
 
 
 class Planet:
-    def __init__(self, mass, radius, g, speed):
+    def __init__(self, mass, radius, g, speed, distanse_from_earth):
         self.mass = mass
         self.radius = radius
         self.g = g
         self.speed = speed
+        self.distanse_from_earth = distanse_from_earth
 
 
 class Rocket:
@@ -28,20 +29,13 @@ rocket = Rocket(10000, 2200, 50, 100, 10000)
 
 # Time to revolve around earth 2358720 Sekonds
 # 384400000 meters to the moon
-moon = Planet(7.35 * 10**24, 1737.4 * 1000, 1.62, 1022)
-earth = Planet(5.972 * 10**24, 6371 * 1000, 9.82, 0)
+moon = Planet(7.35 * 10**24, 1737.4 * 1000, 1.62, 1022, 384400000)
+earth = Planet(5.972 * 10**24, 6371 * 1000, 9.82, 0, 0)
 
 # Hur snabbt simuleringen körs(nogranhet)
 tick_speed = 100
 
-def main():
-    while True:
-        menu = int(input("Press (1) to make rocket"))
-        if menu == 1:
-            #diseinga raket
-            pass
-        
-    pass
+
 
 
 def moon_orbit(tick_speed, moon, earth):
@@ -67,9 +61,25 @@ def moon_orbit(tick_speed, moon, earth):
 
 
 def rocket_orbit(tick_speed, rocket):
+    # calk delta V
     delta_V = rocket.thrust * math.log((rocket.mass + rocket.fuel_mass()) / (rocket.mass))
     print(delta_V)
 
+def pull_from_earth_and_moon(rocket, moon):
+    
+    G = 6.674 * 10**-11
+    #Gravity pull from earth and moon
+    f_moon = G *((rocket.mass * moon.mass)/(moon.distanse_from_earth - rocket.distands_from_earth)**2)
+    f_earth = G *((rocket.mass * earth.mass)/(rocket.distands_from_earth)**2)
+    print(f_earth)
+    
+    # total f force on rocket
+    if f_moon>f_earth:
+        f = f_moon - f_earth
+    else: 
+        f = f_earth - f_moon
+    
+    print(f)
 
 def find_moon_x_and_y(angel, time_from_start):
     # Sinusats för att hitta x och y kordinater till månen
@@ -79,12 +89,16 @@ def find_moon_x_and_y(angel, time_from_start):
     v_in_rad = math.radians(angel)
     moon_y = math.sin(v_in_rad) * 384400000
     moon_x = math.cos(v_in_rad) * 384400000
-
-
+    
 def main():
-    time += tick_speed
+    while True:
+        menu = int(input("Press (1) to make rocket"))
+        if menu == 1:
+            #diseinga raket
+            pass
+        
+    pass
+
+pull_from_earth_and_moon(rocket, moon)
 
 
-rocket_orbit(tick_speed, rocket)
-
-moon_orbit(tick_speed, moon, earth)
