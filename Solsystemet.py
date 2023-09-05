@@ -24,8 +24,9 @@ class Rocket:
     def fuel_mass(self):
         fuel_mass = 1
         return self.fuel * fuel_mass
-            #d_from_e  speed fuel  M     thrust
-rocket = Rocket(10000, 2200, 50, 100, 10000)
+
+        # d_from_e  speed fuel  M     thrust
+rocket = Rocket(160000, 160, 50, 100, 10000)
 
 # Time to revolve around earth 2358720 Sekonds
 # 384400000 meters to the moon
@@ -34,8 +35,6 @@ earth = Planet(5.972 * 10**24, 6371 * 1000, 9.82, 0, 0)
 
 # Hur snabbt simuleringen körs(nogranhet)
 tick_speed = 100
-
-
 
 
 def moon_orbit(tick_speed, moon, earth):
@@ -62,24 +61,29 @@ def moon_orbit(tick_speed, moon, earth):
 
 def rocket_orbit(tick_speed, rocket):
     # calk delta V
-    delta_V = rocket.thrust * math.log((rocket.mass + rocket.fuel_mass()) / (rocket.mass))
+    delta_V = rocket.thrust * \
+        math.log((rocket.mass + rocket.fuel_mass()) / (rocket.mass))
     print(delta_V)
 
+
 def pull_from_earth_and_moon(rocket, moon):
-    
     G = 6.674 * 10**-11
-    #Gravity pull from earth and moon
-    f_moon = G *((rocket.mass * moon.mass)/(moon.distanse_from_earth - rocket.distands_from_earth)**2)
-    f_earth = G *((rocket.mass * earth.mass)/(rocket.distands_from_earth)**2)
+    # Gravity pull from earth and moon
+    f_moon = G * ((rocket.mass * moon.mass) /
+                  (moon.distanse_from_earth - rocket.distands_from_earth)**2)
+    f_earth = G * ((rocket.mass * earth.mass) /
+                   (rocket.distands_from_earth)**2)
     print(f_earth)
-    
-    # total f force on rocket
-    if f_moon>f_earth:
+    print(f_moon)
+
+    # Total force on rocket
+    if f_moon < f_earth:
         f = f_moon - f_earth
-    else: 
+    else:
         f = f_earth - f_moon
-    
+
     print(f)
+
 
 def find_moon_x_and_y(angel, time_from_start):
     # Sinusats för att hitta x och y kordinater till månen
@@ -89,16 +93,21 @@ def find_moon_x_and_y(angel, time_from_start):
     v_in_rad = math.radians(angel)
     moon_y = math.sin(v_in_rad) * 384400000
     moon_x = math.cos(v_in_rad) * 384400000
-    
+
+
+def calc_speed_in_orbit(moon, rocket, earth):
+    # v**2 = µ((2/r) - (1/a))
+    pass
+
+
 def main():
     while True:
         menu = int(input("Press (1) to make rocket"))
         if menu == 1:
-            #diseinga raket
+            # diseinga raket
             pass
-        
+
     pass
 
+
 pull_from_earth_and_moon(rocket, moon)
-
-
