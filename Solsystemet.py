@@ -94,6 +94,15 @@ def find_moon_x_and_y(angel, time_from_start):
     moon_y = math.sin(v_in_rad) * 384400000
     moon_x = math.cos(v_in_rad) * 384400000
 
+def calc_rocket_orbit(moon, rocket, earth):
+    r = 0
+    G = 6.674 * 10**-11
+    epsilon = 0.5 * rocket.mass * (rocket.speed)**2
+    print(ke)
+    ke = (rocket.speed**2) / 2 - (G * rocket.mass)/rocket.distands_from_earth
+    pe = -(G * earth.mass * rocket.mass) / r
+    print(ke)
+    
 
 def calc_speed_in_orbit(moon, rocket, earth):
     # v**2 = µ((2/r) - (1/a))
@@ -109,5 +118,4 @@ def main():
 
     pass
 
-
-pull_from_earth_and_moon(rocket, moon)
+calc_rocket_orbit(moon, rocket, earth)
