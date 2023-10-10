@@ -9,13 +9,17 @@ import math
 # Lunar Orbit = LO
 # Lunar Surface = LS
 # Dubbelkolla GTO
+# Delta_V to LOE to LO = 3900
 
-orbit_and_delta_v = {"LEO": 9700, "TLI": 3150, "MCC": 500,
+orbit_and_delta_v_moon = {"LEO": 9700, "TLI": 3150, "MCC": 500,
                      "LOI": 350, "GTO": 3200, "LO": 700, "LS": 1600}
 
-total_delta_v = sum(orbit_and_delta_v.values())
+total_delta_v = sum(orbit_and_delta_v_moon.values())
 
-print(f"Delta V needed: {total_delta_v}")
+# Delta_V to LOE to LO = 3900 + MCC
+total_delta_v_from_orbit = 3900 + 500
+
+print(f"Delta V needed from LOW: {total_delta_v_from_orbit}")
 
 class Engine:
     def __init__(self, weight, exhaust_v, ISP, flow_rate, trusth) -> None:
@@ -36,53 +40,41 @@ class Rocket:
 
     def calc_fuel_and_delta_v(self):
         self.mass += self.engine.weight
-        
+
         # delta v input
         delta_v_input = int(input("How much delta V do you want:  "))
-        
+
         # Clalc fuel needed
-        self.fuel = math.ceil(((math.e ** ((delta_v_input/self.engine.exhaust_v))) * self.mass) - self.mass)
-        
+        self.fuel = math.ceil(
+            ((math.e ** ((delta_v_input/self.engine.exhaust_v))) * self.mass) - self.mass)
+
         # clalc delta v
-        self.delta_V = self.engine.exhaust_v * math.log((self.mass + self.fuel) / self.mass)
-        
+        self.delta_V = self.engine.exhaust_v * \
+            math.log((self.mass + self.fuel) / self.mass)
+
         print(f"fuel needed: {self.fuel} kg")
-        print(f"delta V given {self.delta_V} m/s")
-        
+        print(f"delta V given {round(self.delta_V)} m/s")
+
         return self.delta_V, self.fuel
-    
-    
-    def exhaust_v_2(self):
 
-        # LEtter to NASA
-        # https://www.nasa.gov/content/submit-a-question-for-nasa/
-        """I am working on a school project and was studying Tsiolkovsky's rocket equation. I was wondering how the total exhaust velocity in a rocket with multiple engines is calculated and how it would affect the rocket's total delta-v."""
-        
-        engine_amount = int(input("How many engines do you want: "))
-
-        """engien_amount = int(input("How many engien do you want: "))
-        self.sum_exhaust_v = ((self.engine.flow_rate * self.engine.ISP) * engien_amount) / (self.engine.flow_rate * engien_amount)
-        return self.sum_exhaust_v"""
-        
-    
     def fuel_expense(self):
-        
-        # Fuel: RP-1 and liquid oxygen 
-        # PR-1 11.34 KR per kilo
-        # liquid oxygen 2.10 SEK per kilogram
-        # 1 kg RP-1 needs 1.8 to 2.5 of LOX, mabye 2.15 
-        # Assuem 1/3 kilo RP-1 = 2/3 Kilo LOZ  
+        # https://spaceimpulse.com/2023/06/13/how-much-does-rocket-fuel-cost/
+        # RP-1 presents a cheaper option at $2.3/kg.
+        # while LOX comes in at $0.27/kg
+        # https://link.springer.com/chapter/10.1007/978-0-387-09630-8_4 STATES RATIO (2.27:1 mixture ratio of LOX to RP-1)
 
-        # THIS MIGHT BE WRONG
-        # THIS IS WRONG
-        rp_1_price = round((self.fuel/3) * (2.15/3),1)
-        LOX_price =round((self.fuel*(2/3)) * (2.1 * (2/3)),1)
-        
-        total_fuel_price = rp_1_price + LOX_price
-        
-        print(total_fuel_price)
-        
+        sum_ratio = 2.27 + 1
+        part_of_fuel = self.fuel / sum_ratio
 
+        LOX_fuel = part_of_fuel * 2.27
+        RP_1_fuel = part_of_fuel * 1
+
+        LOX_fuel_price = LOX_fuel * 0.27
+        RP_1_fuel_price = RP_1_fuel * 2.3
+
+        total_fuel_price_in_dollars = round(LOX_fuel_price + RP_1_fuel_price)
+
+        print(total_fuel_price_in_dollars)
 
 
 # https://www.spaceflightinsider.com/hangar/falcon-9/
@@ -93,5 +85,3 @@ rocket = Rocket(10, 0, 3900, SpaceX_Merlin, 0, 0)
 
 rocket.calc_fuel_and_delta_v()
 rocket.fuel_expense()
-print("")
-print(rocket.exhaust_v_2())
