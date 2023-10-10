@@ -19,7 +19,7 @@ total_delta_v = sum(orbit_and_delta_v_moon.values())
 # Delta_V to LOE to LO = 3900 + MCC
 total_delta_v_from_orbit = 3900 + 500
 
-print(f"Delta V needed from LOW: {total_delta_v_from_orbit}")
+print(f"Delta V needed from LEO: {total_delta_v_from_orbit}")
 
 class Engine:
     def __init__(self, weight, exhaust_v, ISP, flow_rate, trusth) -> None:
@@ -40,13 +40,12 @@ class Rocket:
 
     def calc_fuel_and_delta_v(self):
         self.mass += self.engine.weight
-
+        
         # delta v input
         delta_v_input = int(input("How much delta V do you want:  "))
 
         # Clalc fuel needed
-        self.fuel = math.ceil(
-            ((math.e ** ((delta_v_input/self.engine.exhaust_v))) * self.mass) - self.mass)
+        self.fuel = math.ceil(((math.e ** ((delta_v_input/self.engine.exhaust_v))) * self.mass) - self.mass)
 
         # clalc delta v
         self.delta_V = self.engine.exhaust_v * \
