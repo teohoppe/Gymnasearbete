@@ -1,5 +1,5 @@
 import math
-
+# Karta för delta_v för att åka i solsystemet
 # https://web.archive.org/web/20070701211813/http://www.pma.caltech.edu/~chirata/deltav.html
 
 # Trans lunar ijection = TLI

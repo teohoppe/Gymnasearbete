@@ -1,14 +1,8 @@
 import math
 
-engine_e_x  = 3050
-mass = 3900
+# write a code that uses the rocket equation to determen how much fuel you need to reach a certain height
+# the rocket equation is: F = m * a
 
-delta_V = int(input(""))
 
-fuel = 2363734.1476801927
-# Calculate delta-v
-delta_V = engine_e_x * math.log((mass + fuel) / mass)
 
-# Calculate fuel needed
-print(fuel)
-print(delta_V)
+
