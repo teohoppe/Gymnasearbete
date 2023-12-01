@@ -1,5 +1,5 @@
 import math
-# Karta för delta_v för att åka i solsystemet
+# Karta för delta_v för att åka i
 # https://web.archive.org/web/20070701211813/http://www.pma.caltech.edu/~chirata/deltav.html
 
 # Trans lunar ijection = TLI
@@ -73,7 +73,7 @@ class Rocket:
 
         total_fuel_price_in_dollars = round(LOX_fuel_price + RP_1_fuel_price)
 
-        print(total_fuel_price_in_dollars)
+        print(f"Totala pris: {total_fuel_price_in_dollars}")
 
 
 # https://www.spaceflightinsider.com/hangar/falcon-9/
