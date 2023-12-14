@@ -17,7 +17,7 @@ orbit_and_delta_v_moon = {"LEO": 9700, "TLI": 3150, "MCC": 500,
 total_delta_v = sum(orbit_and_delta_v_moon.values())
 
 # Delta_V to LOE to LO = 3900 + MCC
-total_delta_v_from_orbit = 3900 + 500
+total_delta_v_from_orbit = 3200 + 700 + 1600
 
 print(f"Delta V needed from LEO: {total_delta_v_from_orbit}")
 
