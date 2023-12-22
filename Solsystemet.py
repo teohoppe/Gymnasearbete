@@ -63,6 +63,7 @@ class Rocket:
         # https://link.springer.com/chapter/10.1007/978-0-387-09630-8_4 STATES RATIO (2.27:1 mixture ratio of LOX to RP-1)
 
         sum_ratio = 2.27 + 1
+
         part_of_fuel = self.fuel / sum_ratio
 
         LOX_fuel = part_of_fuel * 2.27
@@ -73,14 +74,34 @@ class Rocket:
 
         total_fuel_price_in_dollars = round(LOX_fuel_price + RP_1_fuel_price)
 
-        print(f"Totala pris: {total_fuel_price_in_dollars}")
+        #print(f"Totala pris: {total_fuel_price_in_dollars}")
+
+
+        sum_ratio_raptor = 3.6 + 1
+        part_of_fuel_raptor = self.fuel / sum_ratio_raptor
+
+        LOX_fuel_raptor = part_of_fuel_raptor * 3.6
+        ch4_fuel_raptor = part_of_fuel_raptor * 1
+
+        LOX_fuel_price_raptor = LOX_fuel * 0.27
+        ch4_fuel_price_raptor = ch4_fuel_raptor * 8.8
+        
+        total_fuel_price_in_dollars_raptor = round(LOX_fuel_price_raptor + ch4_fuel_price_raptor)
+        print(f"Totala pris: {total_fuel_price_in_dollars_raptor}")
+
+
 
 
 # https://www.spaceflightinsider.com/hangar/falcon-9/
 # SpaceX_Merlin flowrate is 140 kg/s, to calc change in exhous velocity
 SpaceX_Merlin = Engine(470, 3050, 342, 140, 981000)
 
-rocket = Rocket(10, 0, 3900, SpaceX_Merlin, 0, 0)
+Spacex_Raptor = Engine(1600 , 3236, 350, 650, 2230000)   #https://forum.nasaspaceflight.com/index.php?topic=47506.1520, https://en.wikipedia.org/wiki/SpaceX_Raptor 
+
+hm7b = Engine(165, 4400, 424, 100, 6800000)
+
+rocket = Rocket(10, 0, 4000, Spacex_Raptor, 0, 0)
+#rocket = Rocket(10, 0, 3900, SpaceX_Merlin, 0, 0)
 
 rocket.calc_fuel_and_delta_v()
 rocket.fuel_expense()
