@@ -87,7 +87,19 @@ class Rocket:
         ch4_fuel_price_raptor = ch4_fuel_raptor * 8.8
         
         total_fuel_price_in_dollars_raptor = round(LOX_fuel_price_raptor + ch4_fuel_price_raptor)
-        print(f"Totala pris: {total_fuel_price_in_dollars_raptor}")
+        #print(f"Totala pris: {total_fuel_price_in_dollars_raptor}")
+
+        sum_ratio_rs68 = 5.97 + 1
+        part_of_fuel_rs68 = self.fuel / sum_ratio_rs68
+
+        LOX_fuel_rs68 = part_of_fuel_rs68 * 5.97
+        LH2_fuel_rs68 = part_of_fuel_rs68 * 1
+
+        LOX_fuel_price_rs68 = LOX_fuel_rs68 * 0.27
+        LH2_fuel_price_rs68 = LH2_fuel_rs68 * 6.1 
+
+        total_fuel_price_in_dollars_rs68 = round(LOX_fuel_price_rs68 + LH2_fuel_price_rs68)
+        print(f"Totala pris: {total_fuel_price_in_dollars_rs68}")
 
 
 
@@ -98,10 +110,11 @@ SpaceX_Merlin = Engine(470, 3050, 342, 140, 981000)
 
 Spacex_Raptor = Engine(1600 , 3236, 350, 650, 2230000)   #https://forum.nasaspaceflight.com/index.php?topic=47506.1520, https://en.wikipedia.org/wiki/SpaceX_Raptor 
 
-hm7b = Engine(165, 4400, 424, 100, 6800000)
+rs68 = Engine(6600, 4464, 412, 550, 3370000) # https://en.wikipedia.org/wiki/RS-68, https://www.slideshare.net/JackTaylor20/rs68 
 
-rocket = Rocket(10, 0, 4000, Spacex_Raptor, 0, 0)
+#rocket = Rocket(10, 0, 4000, Spacex_Raptor, 0, 0)
 #rocket = Rocket(10, 0, 3900, SpaceX_Merlin, 0, 0)
+rocket = Rocket(10, 0, 3900, rs68, 0, 0)
 
 rocket.calc_fuel_and_delta_v()
 rocket.fuel_expense()
