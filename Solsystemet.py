@@ -57,64 +57,77 @@ class Rocket:
         return self.delta_V, self.fuel
 
     def fuel_expense(self):
+        
+        if self.engine == SpaceX_Merlin:
+            sum_ratio = 2.27 + 1
+            part_of_fuel = self.fuel / sum_ratio
+
+            LOX_fuel = part_of_fuel * 2.27
+            RP_1_fuel = part_of_fuel * 1
+
+            LOX_fuel_price = LOX_fuel * 0.27
+            RP_1_fuel_price = RP_1_fuel * 2.3
+
+            total_fuel_price_in_dollars = round(LOX_fuel_price + RP_1_fuel_price)
+
+            print(f"Totala pris: {total_fuel_price_in_dollars}")
+        
+        elif self.engine == Spacex_Raptor:
+            sum_ratio_raptor = 3.6 + 1
+            part_of_fuel_raptor = self.fuel / sum_ratio_raptor
+
+            LOX_fuel_raptor = part_of_fuel_raptor * 3.6
+            ch4_fuel_raptor = part_of_fuel_raptor * 1
+
+            LOX_fuel_price_raptor = LOX_fuel * 0.27
+            ch4_fuel_price_raptor = ch4_fuel_raptor * 8.8
+            
+            total_fuel_price_in_dollars_raptor = round(LOX_fuel_price_raptor + ch4_fuel_price_raptor)
+            print(f"Totala pris: {total_fuel_price_in_dollars_raptor}")
+            
+        elif self.engine == rs68:
+            sum_ratio_rs68 = 5.97 + 1
+            part_of_fuel_rs68 = self.fuel / sum_ratio_rs68
+
+            LOX_fuel_rs68 = part_of_fuel_rs68 * 5.97
+            LH2_fuel_rs68 = part_of_fuel_rs68 * 1
+
+            LOX_fuel_price_rs68 = LOX_fuel_rs68 * 0.27
+            LH2_fuel_price_rs68 = LH2_fuel_rs68 * 6.1 
+
+            total_fuel_price_in_dollars_rs68 = round(LOX_fuel_price_rs68 + LH2_fuel_price_rs68)
+            print(f"Totala pris: {total_fuel_price_in_dollars_rs68}")
+        
         # https://spaceimpulse.com/2023/06/13/how-much-does-rocket-fuel-cost/
         # RP-1 presents a cheaper option at $2.3/kg.
         # while LOX comes in at $0.27/kg
         # https://link.springer.com/chapter/10.1007/978-0-387-09630-8_4 STATES RATIO (2.27:1 mixture ratio of LOX to RP-1)
 
-        sum_ratio = 2.27 + 1
-
-        part_of_fuel = self.fuel / sum_ratio
-
-        LOX_fuel = part_of_fuel * 2.27
-        RP_1_fuel = part_of_fuel * 1
-
-        LOX_fuel_price = LOX_fuel * 0.27
-        RP_1_fuel_price = RP_1_fuel * 2.3
-
-        total_fuel_price_in_dollars = round(LOX_fuel_price + RP_1_fuel_price)
-
-        #print(f"Totala pris: {total_fuel_price_in_dollars}")
-
-
-        sum_ratio_raptor = 3.6 + 1
-        part_of_fuel_raptor = self.fuel / sum_ratio_raptor
-
-        LOX_fuel_raptor = part_of_fuel_raptor * 3.6
-        ch4_fuel_raptor = part_of_fuel_raptor * 1
-
-        LOX_fuel_price_raptor = LOX_fuel * 0.27
-        ch4_fuel_price_raptor = ch4_fuel_raptor * 8.8
-        
-        total_fuel_price_in_dollars_raptor = round(LOX_fuel_price_raptor + ch4_fuel_price_raptor)
-        #print(f"Totala pris: {total_fuel_price_in_dollars_raptor}")
-
-        sum_ratio_rs68 = 5.97 + 1
-        part_of_fuel_rs68 = self.fuel / sum_ratio_rs68
-
-        LOX_fuel_rs68 = part_of_fuel_rs68 * 5.97
-        LH2_fuel_rs68 = part_of_fuel_rs68 * 1
-
-        LOX_fuel_price_rs68 = LOX_fuel_rs68 * 0.27
-        LH2_fuel_price_rs68 = LH2_fuel_rs68 * 6.1 
-
-        total_fuel_price_in_dollars_rs68 = round(LOX_fuel_price_rs68 + LH2_fuel_price_rs68)
-        print(f"Totala pris: {total_fuel_price_in_dollars_rs68}")
-
-
-
 
 # https://www.spaceflightinsider.com/hangar/falcon-9/
 # SpaceX_Merlin flowrate is 140 kg/s, to calc change in exhous velocity
 SpaceX_Merlin = Engine(470, 3050, 342, 140, 981000)
-
 Spacex_Raptor = Engine(1600 , 3236, 350, 650, 2230000)   #https://forum.nasaspaceflight.com/index.php?topic=47506.1520, https://en.wikipedia.org/wiki/SpaceX_Raptor 
-
 rs68 = Engine(6600, 4464, 412, 550, 3370000) # https://en.wikipedia.org/wiki/RS-68, https://www.slideshare.net/JackTaylor20/rs68 
 
-#rocket = Rocket(10, 0, 4000, Spacex_Raptor, 0, 0)
-#rocket = Rocket(10, 0, 3900, SpaceX_Merlin, 0, 0)
-rocket = Rocket(10, 0, 3900, rs68, 0, 0)
+rocket_rapt = Rocket(10, 0, 4000, Spacex_Raptor, 0, 0)
+rocket_merl = Rocket(10, 0, 3900, SpaceX_Merlin, 0, 0)
+rocket_rs = Rocket(10, 0, 3900, rs68, 0, 0)
+
+def what_rocket_do_you_want():
+    print("Select an engine:\n1. SpaceX Merlin\n2. SpaceX Raptor\n3. RS-68")
+    choice = input("Enter the number of your choice: ")
+    if choice == '1':
+        return rocket_merl
+    elif choice == '2':
+        return rocket_rapt
+    elif choice == '3':
+        return rocket_rs
+    else:
+        print("Invalid choice. Defaulting to SpaceX Merlin.")
+        return rocket_merl
+
+rocket = what_rocket_do_you_want()
 
 rocket.calc_fuel_and_delta_v()
 rocket.fuel_expense()
