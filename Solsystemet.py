@@ -118,9 +118,9 @@ Spacex_Raptor = Engine(1600, 3236, 350, 650, 2230000)
 rs68 = Engine(6600, 4464, 412, 550, 3370000)
 
 # Rocket instances with initial parameters
-rocket_rapt = Rocket(10, 0, 4000, Spacex_Raptor, 0, 0)
-rocket_merl = Rocket(10, 0, 3900, SpaceX_Merlin, 0, 0)
-rocket_rs = Rocket(10, 0, 3900, rs68, 0, 0)
+rocket_rapt = Rocket(10, 0, 4000, Spacex_Raptor, 0, 0) #https://forum.nasaspaceflight.com/index.php?topic=47506.1520, https://en.wikipedia.org/wiki/SpaceX_Raptor 
+rocket_merl = Rocket(10, 0, 3900, SpaceX_Merlin, 0, 0) #https://en.wikipedia.org/wiki/SpaceX_Merlin, https://www.spacex.com/vehicles/falcon-9/
+rocket_rs = Rocket(10, 0, 3900, rs68, 0, 0) #https://en.wikipedia.org/wiki/RS-68, https://www.slideshare.net/JackTaylor20/rs68 
 
 
 def what_rocket_do_you_want():
